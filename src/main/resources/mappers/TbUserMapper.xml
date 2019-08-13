@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiro.api.dao.TbUserDAO">
+
+    <sql id="TABLE">
+        tb_user
+    </sql>
+
+    <sql id="QUERY_FIELDS">
+        id, user_name, password, real_name, forbidden, create_time, update_time
+    </sql>
+
+    <resultMap id="resultMap" type="com.shiro.api.model.TbUser">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="realName" column="real_name"/>
+        <result property="forbidden" column="forbidden"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="getByUserName" parameterType="String" resultMap="resultMap">
+        SELECT <include refid="QUERY_FIELDS"/>
+        FROM <include refid="TABLE"/>
+        WHERE user_name = #{userName};
+    </select>
+
+    <update id="forbiddenByUserName" parameterType="String">
+        UPDATE <include refid="TABLE"/> SET forbidden = 1
+        WHERE user_name = #{userName};
+    </update>
+</mapper>

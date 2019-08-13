@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiro.api.dao.TbMenuDAO">
+
+    <sql id="TABLE">
+        tb_menu
+    </sql>
+
+    <sql id="QUERY_FIELDS">
+        id, menu_name, menu_url
+    </sql>
+
+    <resultMap id="resultMap" type="com.shiro.api.model.TbMenu">
+        <id property="id" column="id"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuUrl" column="menu_url"/>
+    </resultMap>
+
+    <select id="getByIds" resultMap="resultMap">
+        SELECT <include refid="QUERY_FIELDS"/>
+        FROM <include refid="TABLE"/>
+        WHERE id IN
+        <foreach collection="roleIds" open="(" close=")" separator="," item="id">#{id}</foreach>
+    </select>
+</mapper>

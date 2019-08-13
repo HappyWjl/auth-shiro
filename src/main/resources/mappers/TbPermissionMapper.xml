@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shiro.api.dao.TbPermissionDAO">
+
+	<sql id="TABLE">
+        tb_permission
+    </sql>
+
+	<sql id="QUERY_FIELDS">
+        id, permission_name
+    </sql>
+
+    <resultMap id="resultMap" type="com.shiro.api.model.TbPermission">
+        <id property="id" column="id"/>
+        <result property="permissionName" column="permission_name"/>
+    </resultMap>
+
+    <select id="getByPermissionIds" resultMap="resultMap">
+		SELECT <include refid="QUERY_FIELDS"/>
+		FROM <include refid="TABLE"/>
+		WHERE id IN
+		<foreach collection="permissionIds" open="(" close=")" separator="," item="id">#{id}</foreach>
+	</select>
+
+</mapper>

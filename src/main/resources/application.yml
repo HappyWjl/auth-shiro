@@ -1,0 +1,35 @@
+# 端口号 port
+server:
+  port: 8080
+
+# 数据库配置 jdbc
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shiro?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+
+  # 缓存配置 redis
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+
+mybatis:
+  mapper-locations: classpath:/mappers/*.xml
+  type-aliases-package: com.example.shiro.model
+
+# session cache config
+shiro:
+  redis:
+    sessionLive: 30
+    sessionPrefix: shiro_redis_session_
+    cacheLive: 30
+    cachePrefix: shiro_redis_cache_
+    kickoutPrefix: shiro_redis_kickout_
+    # 验证码缓存时间
+    verificationCodeTime: 5
+    # 踢出缓存key
+    kickOutKey: out
