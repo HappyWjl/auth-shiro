@@ -1,24 +1,24 @@
 /*
- Navicat Premium Data Transfer
+ Navicat MySQL Data Transfer
 
  Source Server         : 本机docker-mysql数据库
  Source Server Type    : MySQL
  Source Server Version : 50643
- Source Host           : localhost
- Source Database       : shiro
+ Source Host           : localhost:3306
+ Source Schema         : shiro
 
  Target Server Type    : MySQL
  Target Server Version : 50643
- File Encoding         : utf-8
+ File Encoding         : 65001
 
- Date: 08/13/2019 17:20:53 PM
+ Date: 05/01/2020 14:00:09
 */
 
-SET NAMES utf8;
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
---  Table structure for `tb_menu`
+-- Table structure for tb_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_menu`;
 CREATE TABLE `tb_menu` (
@@ -29,14 +29,15 @@ CREATE TABLE `tb_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
---  Records of `tb_menu`
+-- Records of tb_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_menu` VALUES ('1', '教务管理', '/jiaowuguanli/index'), ('2', '课程安排', '/kechenganpai/index');
+INSERT INTO `tb_menu` VALUES (1, '教务管理', '/jiaowuguanli/index');
+INSERT INTO `tb_menu` VALUES (2, '课程安排', '/kechenganpai/index');
 COMMIT;
 
 -- ----------------------------
---  Table structure for `tb_permission`
+-- Table structure for tb_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_permission`;
 CREATE TABLE `tb_permission` (
@@ -46,31 +47,33 @@ CREATE TABLE `tb_permission` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='权限表';
 
 -- ----------------------------
---  Records of `tb_permission`
+-- Records of tb_permission
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_permission` VALUES ('2', 'jiaoxuesheng'), ('3', 'shoubanfei');
+INSERT INTO `tb_permission` VALUES (2, 'jiaoxuesheng');
+INSERT INTO `tb_permission` VALUES (3, 'shoubanfei');
 COMMIT;
 
 -- ----------------------------
---  Table structure for `tb_role`
+-- Table structure for tb_role
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role`;
 CREATE TABLE `tb_role` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `role_name` varchar(20) DEFAULT '' COMMENT '角色名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
---  Records of `tb_role`
+-- Records of tb_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_role` VALUES ('3', 'zhuren'), ('4', 'teacher');
+INSERT INTO `tb_role` VALUES (3, 'zhuren');
+INSERT INTO `tb_role` VALUES (4, 'teacher');
 COMMIT;
 
 -- ----------------------------
---  Table structure for `tb_role_menu`
+-- Table structure for tb_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role_menu`;
 CREATE TABLE `tb_role_menu` (
@@ -81,14 +84,16 @@ CREATE TABLE `tb_role_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
---  Records of `tb_role_menu`
+-- Records of tb_role_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_role_menu` VALUES ('1', '1', '3'), ('2', '2', '3'), ('3', '2', '4');
+INSERT INTO `tb_role_menu` VALUES (1, 1, 3);
+INSERT INTO `tb_role_menu` VALUES (2, 2, 3);
+INSERT INTO `tb_role_menu` VALUES (3, 2, 4);
 COMMIT;
 
 -- ----------------------------
---  Table structure for `tb_role_permission`
+-- Table structure for tb_role_permission
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role_permission`;
 CREATE TABLE `tb_role_permission` (
@@ -101,14 +106,16 @@ CREATE TABLE `tb_role_permission` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色-权限关联表';
 
 -- ----------------------------
---  Records of `tb_role_permission`
+-- Records of tb_role_permission
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_role_permission` VALUES ('2', '4', '2'), ('3', '3', '3'), ('4', '3', '2');
+INSERT INTO `tb_role_permission` VALUES (2, 4, 2);
+INSERT INTO `tb_role_permission` VALUES (3, 3, 3);
+INSERT INTO `tb_role_permission` VALUES (4, 3, 2);
 COMMIT;
 
 -- ----------------------------
---  Table structure for `tb_user`
+-- Table structure for tb_user
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
@@ -123,14 +130,15 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
---  Records of `tb_user`
+-- Records of tb_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_user` VALUES ('7', 'zhuren', 'zhuren', '教务处王主任', '0', '2019-08-06 10:36:26', '2019-08-09 03:42:52'), ('8', 'shuxue', 'shuxue', '数学张老师', '0', '2019-08-06 10:36:22', '2019-08-09 02:51:54');
+INSERT INTO `tb_user` VALUES (7, 'zhuren', 'zhuren', '教务处王主任', 0, '2019-08-06 10:36:26', '2019-08-09 03:42:52');
+INSERT INTO `tb_user` VALUES (8, 'shuxue', 'shuxue', '数学张老师', 0, '2019-08-06 10:36:22', '2019-08-09 02:51:54');
 COMMIT;
 
 -- ----------------------------
---  Table structure for `tb_user_role`
+-- Table structure for tb_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_user_role`;
 CREATE TABLE `tb_user_role` (
@@ -140,13 +148,14 @@ CREATE TABLE `tb_user_role` (
   PRIMARY KEY (`id`),
   KEY `sy_user_id` (`user_id`) USING BTREE,
   KEY `sy_role_id` (`role_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户-角色关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户-角色关联表';
 
 -- ----------------------------
---  Records of `tb_user_role`
+-- Records of tb_user_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `tb_user_role` VALUES ('1', '7', '3'), ('2', '8', '4');
+INSERT INTO `tb_user_role` VALUES (1, 7, 3);
+INSERT INTO `tb_user_role` VALUES (2, 8, 4);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
